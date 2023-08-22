@@ -1,5 +1,5 @@
 //
-//  sendosc.cpp : 
+//  cosc.cpp : 
 //      Open Sound Control packet sending and receiving program.
 //
 
@@ -17,7 +17,9 @@ extern bool SendPacket(const char* host, unsigned short port, const char* path, 
 
 void usage()
 {
-    fprintf(stderr, "usage : sendosc dst_host {dst_port | 0} {rcv_port | 0} {timeout-ms | 0} path [[type] [param]] ...\n");
+    fprintf(stderr, "cosc - send and receive OSC messages\n");
+    fprintf(stderr, "Transmit a single command or Receive until timeout in milliseconds, or both\n\n");
+    fprintf(stderr, "usage: cosc dst_host{ dst_port | 0 }{ rcv_port | 0 } {timeout ms | 0} path [[type][param]] ...\n");
     fprintf(stderr, "\n");
     fprintf(stderr, "  type\n");
     fprintf(stderr, "    i : int\n");
@@ -25,12 +27,11 @@ void usage()
     fprintf(stderr, "    b : boolean (true/false)\n");
     fprintf(stderr, "    s : string\n");
     fprintf(stderr, "\n");
-    fprintf(stderr, "  example\n");
-    fprintf(stderr, "    ./sendosc 127.0.0.1 7000 9000 500 /togglePlaying i 1\n");
-    fprintf(stderr, "    ./sendosc 127.0.0.1 5678 /test2 f 123.45\n");
-    fprintf(stderr, "    ./sendosc 127.0.0.1 5678 /test3 s teststring\n");
-    fprintf(stderr, "    ./sendosc 127.0.0.1 5678 /test4 b true\n");
-    fprintf(stderr, "    ./sendosc 127.0.0.1 5678 /test5 s teststring i 123 f 123.4 b false\n");
+    fprintf(stderr, "  Examples\n");
+    fprintf(stderr, "    ./cosc - show usage \n");
+    fprintf(stderr, "    ./cosc 127.0.0.1 8000 0 0 /bpm - send only\n");
+    fprintf(stderr, "    ./cosc 127.0.0.1 0 9000 0 /dummy - receive until Ctrl-C\n");
+    fprintf(stderr, "    ./cosc 127.0.0.1 8000 9000 10000 /togglePlaying i 1 - send and receive for 10 seconds or Ctrl-C\n");
     fprintf(stderr, "\n");
     
     exit(0);
