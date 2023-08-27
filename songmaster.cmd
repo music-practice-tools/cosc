@@ -20,7 +20,7 @@ echo  solo { 1 - 5 off }
 echo  metronome { on off }
 echo  loop { on off bar section note track }
 echo  goto { start end next previous } [{bar section note }]
-echo  playlist { info songs next previous index } [ 1...n ]
+echo  playlist { 1...n info songs next previous }
 set exitcode=1
 goto exit
 
@@ -166,7 +166,12 @@ if [%what%] == [play] (
   set params=i 1
 
 ) else if [%what%] == [playlist] (
-  if [%param1%] == [info] (
+  if [%param1] == [] (
+    goto usage
+  ) else if !param1! LEQ 100 (
+    set action=PlayIndex
+    set trackp=i !param1!
+  ) else if [%param1%] == [info] (
     set action=Info
   ) else if [%param1%] == [songs] (
     set action=Songs
@@ -174,13 +179,6 @@ if [%what%] == [play] (
     set action=PlayNext
   ) else if [%param1%] == [previous] (
     set action=PlayPrev
-  ) else if [%param1%] == [item] (
-    set action=PlayIndex
-    if [%param2%] == [] (
-      goto usage
-    ) else if !param2! LEQ 100 (
-      set trackp=i !param2!
-    )
   )  
   
   set cmd=/playlist!action!
