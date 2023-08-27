@@ -105,8 +105,8 @@ if [%what%] == [play] (
   ) else if !param1! LSS 10 (
     set track=%param1%
     set state=1
-  ) else (
-    set track=0
+  ) else if [%param1%] == [off] (
+    set track=1
     set state=0
   )
   set cmd=/stemTrack!track!Solo
