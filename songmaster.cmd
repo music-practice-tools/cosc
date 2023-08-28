@@ -1,7 +1,7 @@
 @rem Use delayed expansion or else vars evaluated at start of a () block
 @setlocal EnableDelayedExpansion
 @
-set _debug=true
+@rem set _debug=true
 @rem un rem previous line to debug 
 @if [%_debug%]==[] echo off
 rem [%1][%2][%3]
