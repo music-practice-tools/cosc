@@ -1,7 +1,7 @@
 @rem Use delayed expansion or else vars evaluated at start of a () block
 @setlocal EnableDelayedExpansion
 @
-@rem set _debug=true
+set _debug=true
 @rem un rem previous line to debug 
 @if [%_debug%]==[] echo off
 rem [%1][%2][%3]
@@ -41,26 +41,27 @@ if [%what%] == [play] (
 
 ) else if [%what%] == [speed] (
   if [%param1%] == [] (
-    goto useage
-  ) else if %param1% == [bmp] (
+    set param1=bpm
+  )
+  if [!param1!] == [bmp] (
     set value=1.0
-  ) else if %param1% LEQ 20 (
+  ) else if !param1! LEQ 20 (
     set value=0.2
-  ) else if %param1% LEQ 40 (
+  ) else if !param1! LEQ 40 (
     set value=0.4
-  ) else if %param1% EQU 50 ( 
+  ) else if !param1! EQU 50 ( 
     set value=0.5
-  ) else if %param1% LEQ 60 ( 
+  ) else if !param1! LEQ 60 ( 
     set value=0.6 
-  ) else if %param1% LEQ 70 ( 
+  ) else if !param1! LEQ 70 ( 
     set value=0.7
-  ) else if %param1% LEQ 80 ( 
+  ) else if !param1! LEQ 80 ( 
     set value=0.8
-  ) else if %param1% LEQ 90 ( 
+  ) else if !param1! LEQ 90 ( 
     set value=0.9
-  ) else if %param1% EQU 100 ( 
+  ) else if !param1! EQU 100 ( 
     set value=1.0
-  ) else if %param1% LEQ 120 (
+  ) else if !param1! LEQ 120 (
     set value=1.2
   ) else (
     set value=1.0
@@ -124,21 +125,20 @@ if [%what%] == [play] (
 ) else if [%what%] == [loop] (
   if [%param1%] == [] (
     set param1=on
-    set state=1
   )
   if [!param1!] == [on] (
     set action=Enable
     set state=1
-  ) else if [%param1%] == [off] (
+  ) else if [!param1!] == [off] (
     set action=Enable
     set state=0
-  ) else if [%param1%] == [bar] (
+  ) else if [!param1!] == [bar] (
     set action=SetToCurrentBar
     set state=1
-  ) else if [%param1%] == [section] (
+  ) else if [!param1!] == [section] (
     set action=SetToCurrentSection
     set state=1
-  ) else if [%param1%] == [note] (
+  ) else if [!param1!] == [note] (
     set action=SetToCurrentNote
     set state=1
   )
