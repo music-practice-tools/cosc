@@ -126,9 +126,9 @@ if [%what%] == [play] (
   if [%param1%] == [] (
     set param1=on
   ) else if [%param1%] == [0] (
-    set param1=note
-  ) else if [%param1%] == [1] (
     set param1=bar
+  ) else if [%param1%] == [1] (
+    set param1=note
   ) else if [%param1%] == [2] (
     set param1=section
   )
@@ -156,9 +156,9 @@ if [%what%] == [play] (
   if [%param1%] == [] (
     set param1=start
   ) else if [%param2%] == [0] (
-    set param2=note
-  ) else if [%param2%] == [1] (
     set param2=bar
+  ) else if [%param2%] == [1] (
+    set param2=note
   ) else if [%param2%] == [2] (
     set param2=section
   ) else if [%param2%] == [100] (
@@ -179,6 +179,7 @@ if [%what%] == [play] (
   ) else if [!param1!] == [previous] (
     set action=Prev
   )
+
   if [!param2!] == [note] (
     set action=!action!Note
   ) else if [!param2!] == [bar] (
