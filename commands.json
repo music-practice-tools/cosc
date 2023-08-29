@@ -18,18 +18,18 @@
     "allowParams": "true"
   },
   {
-    "trigger": "mac pitch up",
+    "trigger": "mac up",
     "command": "C:\\projects\\cosc\\songmaster.cmd pitch up",
     "ground": "foreground",
-    "voice": "mac pitch",
+    "voice": "mac up",
     "voiceReply": " ",
     "allowParams": "true"
   },
   {
-    "trigger": "mac pitch down",
+    "trigger": "mac down",
     "command": "C:\\projects\\cosc\\songmaster.cmd pitch down",
     "ground": "foreground",
-    "voice": "mac pitch",
+    "voice": "mac down",
     "voiceReply": " ",
     "allowParams": "true"
   },
@@ -48,7 +48,7 @@
     "voice": "mac mute off",
     "voiceReply": " ",
     "allowParams": "true"
-  }, 
+  },
   {
     "trigger": "mac solo",
     "command": "C:\\projects\\cosc\\songmaster.cmd solo",
@@ -77,26 +77,26 @@
     "allowParams": "true"
   },
   {
-    "trigger": "mac goto",
-    "command": "C:\\projects\\cosc\\songmaster.cmd metronome goto",
+    "trigger": "mac advance",
+    "command": "C:\\projects\\cosc\\songmaster.cmd goto next",
     "ground": "foreground",
-    "voice": "mac goto",
+    "voice": "mac advance",
     "voiceReply": " ",
     "allowParams": "true"
   },
   {
-    "trigger": "mac playlist",
-    "command": "C:\\projects\\cos,c\\songmaster.cmd playlist",
+    "trigger": "mac retreat",
+    "command": "C:\\projects\\cosc\\songmaster.cmd goto previous",
     "ground": "foreground",
-    "voice": "mac playlist",
+    "voice": "mac retreat",
     "voiceReply": " ",
     "allowParams": "true"
   },
   {
-    "trigger": "mac playlist next",
-    "command": "C:\\projects\\cosc\\songmaster.cmd playlist next",
+    "trigger": "mac setlist",
+    "command": "C:\\projects\\cosc\\songmaster.cmd playlist",
     "ground": "foreground",
-    "voice": "mac playlist next",
+    "voice": "mac setlist",
     "voiceReply": " ",
     "allowParams": "true"
   }
