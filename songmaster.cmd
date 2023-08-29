@@ -2,7 +2,7 @@
 @setlocal EnableDelayedExpansion
 @
 @rem set _debug=true
-@rem un rem previous line to debug 
+@rem delete "@rem " in previous line to debug 
 @if [%_debug%]==[] echo off
 rem [%1][%2][%3]
 
@@ -14,12 +14,12 @@ echo songmaster.cmd - Call Song Master OSC API
 echo.
 echo  play { on off }
 echo  speed { 20 40 50 60 70 80 90 100 120 }
-echo  pitch { up down key} { octave 1...n }
+echo  pitch { up down key} { octave 0...n }
 echo  mute { on off } { 1 - 5 }
 echo  solo { 1 - 5 off }
 echo  metronome { on off }
 echo  loop { on off bar section note track }
-echo  goto { start end next previous } [{bar section note }]
+echo  goto { start end } or {next previous } {bar section note }
 echo  playlist { 1...n info songs next previous }
 set exitcode=1
 goto exit
@@ -125,7 +125,14 @@ if [%what%] == [play] (
 ) else if [%what%] == [loop] (
   if [%param1%] == [] (
     set param1=on
+  ) else if [%param1%] == [0] (
+    set param1=note
+  ) else if [%param1%] == [1] (
+    set param1=bar
+  ) else if [%param1%] == [2] (
+    set param1=section
   )
+
   if [!param1!] == [on] (
     set action=Enable
     set state=1
@@ -146,21 +153,38 @@ if [%what%] == [play] (
   set params=i !state!
 
 ) else if [%what%] == [goto] (
-  if [%param1%] == [start] (
+  if [%param1%] == [] (
+    set param1=start
+  ) else if [%param2%] == [0] (
+    set param2=note
+  ) else if [%param2%] == [1] (
+    set param2=bar
+  ) else if [%param2%] == [2] (
+    set param2=section
+  ) else if [%param2%] == [100] (
+    if [!param1!] == [next] (
+      set param1=end
+    ) else (
+      set param1=start
+    )
+    set param2=
+  )
+
+  if [!param1!] == [start] (
     set action=BeginningOfTrack
-  ) else if [%param1%] == [end] (
+  ) else if [!param1!] == [end] (
     set action=EndOfTrack
-  ) else if [%param1%] == [next] (    
+  ) else if [!param1!] == [next] (    
     set action=Next
-  ) else if [%param1%] == [previous] (
+  ) else if [!param1!] == [previous] (
     set action=Prev
   )
-  if [%param2%] == [bar] (
-    set action=!action!Bar
-  ) else if [%param2%] == [section] (
-    set action=!action!Section
-  ) else if [%param2%] == [note] (
+  if [!param2!] == [note] (
     set action=!action!Note
+  ) else if [!param2!] == [bar] (
+    set action=!action!Bar
+  ) else if [!param2!] == [section] (
+    set action=!action!Section
   )
   set cmd=/goto!action!
   set params=i 1
@@ -168,16 +192,21 @@ if [%what%] == [play] (
 ) else if [%what%] == [playlist] (
   if [%param1] == [] (
     goto usage
-  ) else if !param1! LEQ 100 (
+  ) else if [%param1%] == [on] (
+    set param1=next
+  ) 
+  
+  if !param1! LEQ 100 (
     set action=PlayIndex
-    set trackp=i !param1!
-  ) else if [%param1%] == [info] (
+    set /a "index=!param1!-1"
+    set trackp=i !index!
+  ) else if [!param1!] == [info] (
     set action=Info
-  ) else if [%param1%] == [songs] (
+  ) else if [!param1!] == [songs] (
     set action=Songs
-  ) else if [%param1%] == [next] (
+  ) else if [!param1!] == [next] (
     set action=PlayNext
-  ) else if [%param1%] == [previous] (
+  ) else if [!param1!] == [previous] (
     set action=PlayPrev
   )  
   
